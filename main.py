@@ -3,7 +3,7 @@
 import pygame, sys
 from settings import *
 from grid import Grid
-#from draw import Draw
+from draw import Draw
 
 class Pendulo:
   def __init__(self):
@@ -15,7 +15,7 @@ class Pendulo:
     #são configurações básicas necessarias para rodar a biblioteca pygame
 
     self.grid = Grid()
-#    self.draw = Draw()
+    self.draw = Draw()
 
   def run(self):						#Definição de uma função de execução
     while True:							#Criação de um loop infinito de ver>
@@ -26,7 +26,7 @@ class Pendulo:
 
       self.screen.fill('white')                           #Preenchimento da tela com a cor preta
       self.grid.run()
-#      self.draw.run()
+      self.draw.run()
       pygame.display.update()					#Atualização da tela
       self.clock.tick(FPS)					#Controle da taxa de quadros
 

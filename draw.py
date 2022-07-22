@@ -5,7 +5,7 @@ from settings import *
 from simulacao_pendulo import simulacao
 
 class Draw:
-  def __init__(self, XY):
+  def __init__(self):
     self.display_surface = pygame.display.get_surface()
 
     self.x = XY[0]
