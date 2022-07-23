@@ -34,7 +34,7 @@ def simulacao():							#
     x = np.zeros([2, tam],dtype='float64')				#Criação de uma matrix com duas colunas e números de linhas iguais ao número de variáveis do vetor tempo
 
     # Determinar um valor para a força de controle de equilíbrio
-    u_eq = np.sin(30*np.pi/180)*p*l1/l2					#
+    u_eq = np.sin(theta*np.pi/180)*p*l1/l2				#
 
     # Vetor de entrada
     u = u_eq*np.ones([tam],dtype='float64')				#
@@ -44,19 +44,15 @@ def simulacao():							#
         # Atualização do estado
         x[:,k+1] = rk4(t[k], h, x[:,k], u[k])				#
 
-#    return t,x
+    plt.subplot(2,1,1)
+    plt.plot(t,x[0,:]*180/np.pi)
+    plt.ylabel('$x_1$ - i')
+    plt.subplot(2,1,2)
+    plt.plot(t,x[1,:]*180/np.pi)
+    plt.ylabel('$x_2$ - q')
+    plt.xlabel('t [s]')
+    plt.show()
 
-#if __name__ == '__main__':
-#    t,x = simulacao()
+    print(tam)
 
-    plt.subplot(2, 1, 1)						#
-    plt.plot(t,x[0,:]*180/np.pi)					#
-    plt.ylabel('$x_1$ - i ')						#
-
-    plt.subplot(2, 1, 2)						#
-    plt.plot(t,x[1,:]*180/np.pi)					#
-    plt.ylabel('$x_2$ - q')						#
-    plt.xlabel('t [s]')							#
-    plt.show()								#
-
-simulacao()
+    return tam,x
