@@ -3,6 +3,7 @@
 import pygame, math								#Importação dos comandos dentro das bibliotecas pygame e math (matemática)
 import simulacao_pendulo as simup						#Importação dos comandos dentro da biblioteca simulacao_pendulo como simup
 from settings import *								#Importação de todos os dados da biblioteca settings (configurações)
+from image import Image
 
 class Level:									#Definição de classe para chamadas
   def __init__(self):								#Definição de uma função da chamada inicial
@@ -14,6 +15,9 @@ class Level:									#Definição de classe para chamadas
     self.len, self.x = simup.simulacao()					#Chamada das variáveis de tamanho da matrix e do valor do vetor x na biblioteca simup
     self.i = 0									#Definição da variável i como a primeira posição do vetor x
     self.aux = 0								#Definição da variável auxiliar para debug
+
+    #Grupo de configurações de sprite
+    self.sprite = pygame.sprite.Group()
 
   def run(self):								#Definição da função de execução da biblioteca level
     for j in range(25,WIDTH,25):						#Loop para desenho das grids verticais do desenho
@@ -29,7 +33,11 @@ class Level:									#Definição de classe para chamadas
       print('Fim')								#Printagem no terminal do fim da variação na posição do pendulo
       self.aux = 1								#Comfirmação pela variável auxiliar que o loop terminou
 
-    pygame.draw.circle(self.display_surface,'black',self.center,4)		#Chamada para desenho do ponto onde o pendulo é fixo
-    pygame.draw.line(self.display_surface,'black',self.center,pos,2)		#Chamada para desenho da haste do pendulo
-    pygame.draw.circle(self.display_surface,'black',pos,20)			#Chamada para desenho do contorno do ponto móvel do pendulo
-    pygame.draw.circle(self.display_surface,'red',pos,18)			#chamada para prenchimento do interior do ponto móvel do pendulo
+    self.image = Image(self.center, pos, self.sprite)
+
+    self.sprite.custom_draw(self.image)
+    self.sprite.move()
+#    pygame.draw.circle(self.display_surface,'black',self.center,4)		#Chamada para desenho do ponto onde o pendulo é fixo
+#    pygame.draw.line(self.display_surface,'black',self.center,pos,2)		#Chamada para desenho da haste do pendulo
+#    pygame.draw.circle(self.display_surface,'black',pos,20)			#Chamada para desenho do contorno do ponto móvel do pendulo
+#    pygame.draw.circle(self.display_surface,'red',pos,18)			#chamada para prenchimento do interior do ponto móvel do pendulo
