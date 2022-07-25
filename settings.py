@@ -3,15 +3,14 @@
 #Configurações Iniciais
 WIDTH	= 1280			#Comprimento da Tela
 HEIGHT	= 720			#Altura da Tela
-FPS	= 120			#Numero de Telas por Segundo
-#TILESIZE = 64 #Tamnho do Ladrilho (Malha)
+FPS	= 1e+4			#Numero de Telas por Segundo
 
 #Dados de Entrada
-h 	= 1e-4			#Declaração da variável de divisão do tempo
+h 	= 2/FPS			#Declaração da variável de divisão do tempo
 
-theta 	= 55			#Declaração do angulo
+theta 	= 30			#Declaração do angulo
 l1	= 0.75			#Declaração da posição do centro de massa do pendulo
-l2	= 1.2*400		#Declaração do comprimento do pendulo
+l2	= 1.2			#Declaração do comprimento do pendulo
 
 J	= 1e-2			#Declaração do momento angular do pendulo
 

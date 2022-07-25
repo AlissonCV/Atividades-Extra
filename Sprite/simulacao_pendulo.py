@@ -26,6 +26,11 @@ def rk4(tk, h, xk, uk):							#
     return xkp1								#
 
 def simulacao():							#
+    ek_1 = 0
+    ek_2 = 0
+    uk_1 = 0
+    uk_2 = 0
+
     # PARÂMETROS DE SIMULAÇÃO
     t = np.arange(0,5,h)						#Declaração do vetor tempo
     tam = len(t)							#Números de variáveis do vetor tempo criado
@@ -34,25 +39,42 @@ def simulacao():							#
     x = np.zeros([2, tam],dtype='float64')				#Criação de uma matrix com duas colunas e números de linhas iguais ao número de variáveis do vetor tempo
 
     # Determinar um valor para a força de controle de equilíbrio
-    u_eq = np.sin(theta*np.pi/180)*p*l1/l2				#
+    u_ref = np.sin(theta*np.pi/180)*p*l1/l2				#
+    #u = u_ref*np.ones([tam],dtype='float64')
 
-    # Vetor de entrada
-    u = u_eq*np.ones([tam],dtype='float64')				#
+    # Entrada do Sistema compensado
+    u = np.zeros([tam],dtype='float64')
+    the_ref = theta*np.pi/180.0
+    e = np.zeros([tam],dtype='float64')
+
+    #Ganhos euler e tustin
+    kp = 20
+    ki = 40
+    kd = 2e3
 
     # Execução da simulação
     for k in range(tam-1):						#
+        e[k] = the_ref - x[0][k]
+
+        u[k] = kp*e[k] + ki*(e[k] + ek_1) + kd*(e[k] - ek_1) + u_ref
+
+        ek_2 = ek_1
+        ek_1 = e[k]
+
+        uk_2 = uk_1
+        uk_1 = u[k]
+
         # Atualização do estado
         x[:,k+1] = rk4(t[k], h, x[:,k], u[k])				#
 
-    plt.subplot(2,1,1)
-    plt.plot(t,x[0,:]*180/np.pi)
-    plt.ylabel('$x_1$ - i')
-    plt.subplot(2,1,2)
-    plt.plot(t,x[1,:]*180/np.pi)
-    plt.ylabel('$x_2$ - q')
-    plt.xlabel('t [s]')
-    plt.show()
-
-    print(tam)
+#    plt.subplot(2,1,1)
+#    plt.plot(t,x[0,:]*180/np.pi)
+#    plt.ylabel('$x_1$ - i')
+#    plt.subplot(2,1,2)
+#    plt.plot(t,x[1,:]*180/np.pi)
+#    plt.ylabel('$x_2$ - q')
+#    plt.xlabel('t [s]')
+#    plt.show()
+#    print(tam)
 
     return tam,x
