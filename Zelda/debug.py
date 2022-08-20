@@ -1,8 +1,8 @@
 #!/usr/bin/python3
+#utilizado para verificar debugar o programa e verificar os valores de variáveis do programa
+import pygame #Importação dos comandos dentro da biblioteca pygame
 
-import pygame						#Importação dos comandos dentro da biblioteca pygame
-
-pygame.init()						#
+pygame.init()
 fonte = pygame.font.Font(None,30)			#Definição de uma variável com as especificações da fonte
 
 def debug(info,y = 10, x = 10):				#Definição de uma função de debug (depuração)
